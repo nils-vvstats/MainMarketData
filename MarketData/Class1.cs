@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace test
+namespace MarketData
 {
     public class Class1
     {

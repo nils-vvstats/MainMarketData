@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core
+namespace TelegramBot
 {
     public class Class1
     {

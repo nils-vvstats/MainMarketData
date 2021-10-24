@@ -1,7 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="MarketData\Configurations\" />
+    <Folder Include="MarketData\Models\" />
+    <Folder Include="MarketData\Repository\" />
+  </ItemGroup>
 
 </Project>
