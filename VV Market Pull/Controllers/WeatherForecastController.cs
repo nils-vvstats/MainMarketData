@@ -34,6 +34,8 @@ namespace VV_Market_Pull.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+
+            
         }
     }
 }

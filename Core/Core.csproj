@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Auctions\" />
     <Folder Include="Alerts\" />
     <Folder Include="WalletTransactions\" />
     <Folder Include="Users\" />

@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MarketData\Configurations\" />
-    <Folder Include="MarketData\Models\" />
-    <Folder Include="MarketData\Repository\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
 </Project>
