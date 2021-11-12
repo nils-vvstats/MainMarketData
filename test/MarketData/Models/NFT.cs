@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.MarketData.Models
 {
-    public class LiveAuction
+    public interface NFT
     {
+        public int nftId { get; set; }
+        public string nftImage { get; set; }
 
-        public int AuctionId { get; protected internal set; }
 
-        public List<NFT> NFTs { get; protected internal set; } 
     }
 }

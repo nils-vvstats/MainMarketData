@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Alerts\" />
+    <Folder Include="NFTs\VFNFTs\" />
     <Folder Include="WalletTransactions\" />
     <Folder Include="Users\" />
   </ItemGroup>
