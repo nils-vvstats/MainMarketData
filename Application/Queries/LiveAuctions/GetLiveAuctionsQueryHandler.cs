@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.LiveAuctions
 {
-    public class GetLiveAuctionsQueryHandler : IQueryHandler<GetLiveAuctionsQuery, List<LiveAuction>>
+    public class GetLiveAuctionsQueryHandler : IQueryHandler<GetLiveAuctionsQuery, List<ILiveAuction>>
     {
-        private readonly IReadOnlyRepository<LiveAuction> _repository;
+        private readonly IReadOnlyRepository<ILiveAuction> _repository;
 
-        public GetLiveAuctionsQueryHandler(IReadOnlyRepository<LiveAuction> repository)
+        public GetLiveAuctionsQueryHandler(IReadOnlyRepository<ILiveAuction> repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository), "Repository must be provided to execute GetLiveAuctionsQuery");
         }
 
-        public async Task<List<LiveAuction>> Handle(GetLiveAuctionsQuery query)
+        public async Task<List<ILiveAuction>> Handle(GetLiveAuctionsQuery query)
         {
             if (query == null)
             {

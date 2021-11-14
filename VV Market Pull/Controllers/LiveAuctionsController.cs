@@ -1,4 +1,5 @@
 ﻿using Core.Auctions;
+using DataAccess.MarketData.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,7 +23,7 @@ namespace VV_Market_Pull.Controllers
         [HttpGet]
         public IEnumerable<LiveAuction> Get()
         {
-            var newAuction = new LiveAuction(1);
+            var newAuction = new LiveAuction();
             var auctions = new List<LiveAuction>() { newAuction };
 
             return auctions.ToArray();

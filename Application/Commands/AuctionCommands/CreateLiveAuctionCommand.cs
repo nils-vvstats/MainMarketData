@@ -10,9 +10,9 @@ namespace Application.Commands
 {
     public class CreateLiveAuctionCommand : ICommand
     {
-        public LiveAuction LiveAuction { get; set; }
+        public ILiveAuction LiveAuction { get; set; }
 
-        public CreateLiveAuctionCommand(LiveAuction liveAuction)
+        public CreateLiveAuctionCommand(ILiveAuction liveAuction)
         {
             LiveAuction = liveAuction;
         }
@@ -20,9 +20,9 @@ namespace Application.Commands
 
     public class CreateLiveAuctionCommandHandler : ICommandHandler<CreateLiveAuctionCommand>
     {
-        private readonly IRepository<LiveAuction> _repository;
+        private readonly IRepository<ILiveAuction> _repository;
 
-        public CreateLiveAuctionCommandHandler(IRepository<LiveAuction> repository)
+        public CreateLiveAuctionCommandHandler(IRepository<ILiveAuction> repository)
         {
             _repository = repository;
         }

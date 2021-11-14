@@ -1,3 +1,4 @@
+using Autofac;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
+using System.Linq;
+using VV_Market_Pull.ServiceConfigurations;
 
 namespace VV_Market_Pull
 {
@@ -27,8 +29,13 @@ namespace VV_Market_Pull
             services.AddControllers();
         }
 
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new DataAccessContainerModule());
+            builder.RegisterModule(new MarketDataContainerModule());
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MarketDataDbContext dataContext)
         {
             if (env.IsDevelopment())
             {
@@ -40,6 +47,11 @@ namespace VV_Market_Pull
             app.UseRouting();
 
             app.UseAuthorization();
+
+            if (dataContext.Database.GetPendingMigrations().Any())
+            {
+                dataContext.Database.Migrate();
+            }
 
             app.UseEndpoints(endpoints =>
             {

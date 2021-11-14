@@ -8,10 +8,23 @@ namespace Core.NFTs.YoHeroNFTs
 {
     public class HeroProperties : NFTProperties
     {
-        public Race Race { get; set; }
-        public int NumberOfSummons { get; set; }
-        public HeroAttributes HeroAttributes { get; set; }
-        public HeroComposition HeroComposition { get; set; }
+        public HeroProperties() { }
+        public HeroProperties(Race race, int numOfSummons, HeroAttributes heroAttributes, HeroComposition heroComposition, bool genesisHero)
+        {
+            Id = Guid.NewGuid();
+            Race = race;
+            NumberOfSummons = numOfSummons;
+            HeroAttributes = heroAttributes;
+            HeroComposition = heroComposition;
+            GenesisHero = genesisHero;
+        }
+
+        public Guid Id { get; }
+        public Race Race { get; }
+        public int NumberOfSummons { get; }
+        public HeroAttributes HeroAttributes { get; }
+        public HeroComposition HeroComposition { get; }
+        public bool GenesisHero { get; }
 
     }
 }

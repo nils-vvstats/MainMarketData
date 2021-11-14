@@ -8,10 +8,21 @@ namespace Core.NFTs.YoHeroNFTs
 {
     public class HeroAttributes
     {
-        public int HP { get; set; }
-        public int ATT { get; set; }
-        public int SPO { get; set; }
-        public int DEX { get; set; }
-        public int CRIT { get; set; }
+        public HeroAttributes() { }
+        public HeroAttributes(int hp, int att, int spo, int dex, int crit)
+        {
+            Id = Guid.NewGuid();
+            HP = hp;
+            ATT = att;
+            SPO = spo;
+            DEX = dex;
+            CRIT = crit;
+        }
+        public Guid Id { get; }
+        public int HP { get; }
+        public int ATT { get; }
+        public int SPO { get; }
+        public int DEX { get;}
+        public int CRIT { get; }
     }
 }

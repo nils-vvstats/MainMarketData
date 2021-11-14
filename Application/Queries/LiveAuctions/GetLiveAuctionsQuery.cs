@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.LiveAuctions
 {
-    public class GetLiveAuctionsQuery : IQuery<List<LiveAuction>>
+    public class GetLiveAuctionsQuery : IQuery<List<ILiveAuction>>
     {
     }
 }
