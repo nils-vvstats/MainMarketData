@@ -18,6 +18,7 @@ namespace DataAccess.MarketData.Configurations
             builder.Property(i => i.AuctionPrice);
 
             builder.HasOne(la => la.Hero);
+                
             //builder.OwnsOne(la => la.Hero);
         }
     }

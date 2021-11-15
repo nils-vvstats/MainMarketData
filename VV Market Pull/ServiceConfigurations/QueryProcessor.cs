@@ -20,6 +20,15 @@ namespace VV_Market_Pull.ServiceConfigurations
         {
             var handlerType = typeof(IQueryHandler<,>)
                 .MakeGenericType(query.GetType(), typeof(TResult));
+            //try
+            //{
+            //    dynamic handler2 = _componentContext.Resolve(handlerType);
+            //    return await handler2.Handle((dynamic)query);
+            //}
+            //catch (Exception ex)
+            //{
+            //    var test = ex;
+            //}
             dynamic handler = _componentContext.Resolve(handlerType);
             return await handler.Handle((dynamic)query);
         }

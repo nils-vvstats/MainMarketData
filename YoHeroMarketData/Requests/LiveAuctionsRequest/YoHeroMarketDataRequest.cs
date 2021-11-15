@@ -1,5 +1,7 @@
 ﻿using Application.Commands;
 using Application.Commands.YoHero.SaveAuctions;
+using Application.Queries;
+using Application.Queries.LiveAuctions;
 using Core.Auctions;
 using Core.Auctions.YoHeroLiveAuctions;
 using Newtonsoft.Json;
@@ -19,22 +21,59 @@ namespace YoHeroMarketData.Requests.LiveAuctionsRequest
     {
         private static HttpClient client = new HttpClient();
         private readonly ICommandProcessor _commandProcessor;
+        private readonly IQueryProcessor _queryProcessor;
 
-        public YoHeroMarketDataRequest(ICommandProcessor commandProcessor)
+
+        public YoHeroMarketDataRequest(ICommandProcessor commandProcessor, IQueryProcessor queryProcessor)
         {
             _commandProcessor = commandProcessor;
+            _queryProcessor = queryProcessor;
         }
         public async Task<List<YoHeroLiveAuction>> getLatestMarketData()
         {
             //send request for data
-            
+
             var liveAuctions = sendRequests();
             //convert request data into usable data
 
 
-            var saveLiveAuctionsCommand = new SaveLiveAuctionsCommand(liveAuctions);
-            await _commandProcessor.Process(saveLiveAuctionsCommand);
 
+            //get list of auctions from repo
+            var getLiveAuctionsQuery = new GetYoHeroLiveAuctionsQuery();
+            var savedLiveAuctions = await _queryProcessor.Process(getLiveAuctionsQuery).ConfigureAwait(false);
+            var test = "testl";
+
+            var firstNotSecond = savedLiveAuctions.Except(liveAuctions).ToList();
+            var secondNotFirst = liveAuctions.Except(savedLiveAuctions).ToList();
+
+
+            var deleteLiveAuctionsCommand = new DeleteLiveAuctionCommand(firstNotSecond);
+            await _commandProcessor.Process(deleteLiveAuctionsCommand).ConfigureAwait(false);
+
+
+            //compare two lists
+
+            //delete everything that is not in the list from repo
+            //add everything that is in list
+
+
+
+
+
+
+
+
+
+
+            var saveLiveAuctionsCommand = new SaveLiveAuctionsCommand(secondNotFirst);
+            await _commandProcessor.Process(saveLiveAuctionsCommand).ConfigureAwait(false);
+
+
+
+
+
+
+            //return null;
             return liveAuctions;
             //create command to add new auctions
             //execute command

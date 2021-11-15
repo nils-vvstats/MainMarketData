@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MarketDataDbContext))]
-    [Migration("20211114073800_UpdateHeroConfigurations")]
-    partial class UpdateHeroConfigurations
+    [Migration("20211115020027_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,27 +30,29 @@ namespace DataAccess.Migrations
                     b.Property<double>("AuctionPrice")
                         .HasColumnType("float");
 
-                    b.Property<int?>("HeroID")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("HeroId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeroID");
+                    b.HasIndex("HeroId");
 
                     b.ToTable("YoHeroLiveAuctions");
                 });
 
             modelBuilder.Entity("Core.NFTs.YoHeroNFTs.Hero", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("HeroID")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("HeroPropertiesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("HeroPropertiesId");
 
@@ -146,7 +148,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Core.NFTs.YoHeroNFTs.Hero", "Hero")
                         .WithMany()
-                        .HasForeignKey("HeroID");
+                        .HasForeignKey("HeroId");
 
                     b.Navigation("Hero");
                 });

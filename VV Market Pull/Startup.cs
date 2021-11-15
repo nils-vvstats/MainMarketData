@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,12 +15,15 @@ namespace VV_Market_Pull
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostContext)
         {
             Configuration = configuration;
+            HostContext = hostContext;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment HostContext { get; }
+        public ILifetimeScope AutofacContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -41,6 +45,8 @@ namespace VV_Market_Pull
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
             app.UseHttpsRedirection();
 

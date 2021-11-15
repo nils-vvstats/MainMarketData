@@ -3,23 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class UpdateHeroConfigurations : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<double>(
-                name: "AuctionPrice",
-                table: "YoHeroLiveAuctions",
-                type: "float",
-                nullable: false,
-                defaultValue: 0.0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "HeroID",
-                table: "YoHeroLiveAuctions",
-                type: "int",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "HeroAttributes",
                 columns: table => new
@@ -85,13 +72,13 @@ namespace DataAccess.Migrations
                 name: "Heroes",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HeroID = table.Column<int>(type: "int", nullable: false),
                     HeroPropertiesId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Heroes", x => x.ID);
+                    table.PrimaryKey("PK_Heroes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Heroes_HeroProperties_HeroPropertiesId",
                         column: x => x.HeroPropertiesId,
@@ -100,10 +87,24 @@ namespace DataAccess.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_YoHeroLiveAuctions_HeroID",
-                table: "YoHeroLiveAuctions",
-                column: "HeroID");
+            migrationBuilder.CreateTable(
+                name: "YoHeroLiveAuctions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HeroId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AuctionPrice = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_YoHeroLiveAuctions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_YoHeroLiveAuctions_Heroes_HeroId",
+                        column: x => x.HeroId,
+                        principalTable: "Heroes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Heroes_HeroPropertiesId",
@@ -120,20 +121,16 @@ namespace DataAccess.Migrations
                 table: "HeroProperties",
                 column: "HeroCompositionId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_YoHeroLiveAuctions_Heroes_HeroID",
+            migrationBuilder.CreateIndex(
+                name: "IX_YoHeroLiveAuctions_HeroId",
                 table: "YoHeroLiveAuctions",
-                column: "HeroID",
-                principalTable: "Heroes",
-                principalColumn: "ID",
-                onDelete: ReferentialAction.Restrict);
+                column: "HeroId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_YoHeroLiveAuctions_Heroes_HeroID",
-                table: "YoHeroLiveAuctions");
+            migrationBuilder.DropTable(
+                name: "YoHeroLiveAuctions");
 
             migrationBuilder.DropTable(
                 name: "Heroes");
@@ -146,18 +143,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "HeroCompositions");
-
-            migrationBuilder.DropIndex(
-                name: "IX_YoHeroLiveAuctions_HeroID",
-                table: "YoHeroLiveAuctions");
-
-            migrationBuilder.DropColumn(
-                name: "AuctionPrice",
-                table: "YoHeroLiveAuctions");
-
-            migrationBuilder.DropColumn(
-                name: "HeroID",
-                table: "YoHeroLiveAuctions");
         }
     }
 }

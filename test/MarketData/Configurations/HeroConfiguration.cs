@@ -13,7 +13,8 @@ namespace DataAccess.MarketData.Configurations
     {
         public void Configure(EntityTypeBuilder<Hero> builder)
         {
-            builder.HasKey(i => i.ID);
+            builder.HasKey(i => i.Id);
+            builder.Property(i => i.HeroID);
             //builder.Property(i => i.HeroProperties);
 
             builder.HasOne(h => h.HeroProperties);

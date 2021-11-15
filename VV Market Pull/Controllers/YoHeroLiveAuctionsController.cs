@@ -31,10 +31,10 @@ namespace VV_Market_Pull.Controllers
         }
 
         [HttpGet]
-        public bool Get()
+        public async Task<bool> Get()
         {
-            var marketDataRequest = new YoHeroMarketDataRequest(_commandProcessor);
-            var LiveAuctions = marketDataRequest.getLatestMarketData();
+            var marketDataRequest = new YoHeroMarketDataRequest(_commandProcessor, _queryProcessor);
+            var LiveAuctions = await marketDataRequest.getLatestMarketData();
             var test = LiveAuctions;
             return true;
         }

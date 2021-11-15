@@ -1,0 +1,1 @@
+ Add-Migration HeroUpdate -StartupProject Web -Context MarketDataDbContext -Project DataAccess

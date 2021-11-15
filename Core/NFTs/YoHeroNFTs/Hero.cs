@@ -11,10 +11,12 @@ namespace Core.NFTs.YoHeroNFTs
         public Hero() {}
         public Hero(int id, HeroProperties heroProperties)
         {
-            ID = id;
+            Id = Guid.NewGuid();
+            HeroID = id;
             HeroProperties = heroProperties;
         }
-        public int ID { get; set; }
+        public Guid Id { get; }
+        public int HeroID { get; set; }
         public HeroProperties HeroProperties { get; set; }
     }
 }

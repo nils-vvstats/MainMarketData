@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using Application.Interfaces;
+using Autofac;
 using DataAccess;
 using DataAccess.MarketData.Repository;
 using System;
@@ -13,6 +14,13 @@ namespace VV_Market_Pull.ServiceConfigurations
         protected override void Load(ContainerBuilder builder)
         {
             var dataAccessAssembly = typeof(MarketDataDbContext).Assembly;
+
+            builder.RegisterAssemblyTypes(dataAccessAssembly)
+                .AsClosedTypesOf(typeof(IReadOnlyRepository<>));
+
+            builder.RegisterAssemblyTypes(dataAccessAssembly)
+                .AsClosedTypesOf(typeof(IRepository<>));
+
             builder.RegisterGeneric(typeof(MarketDataRepository<>))
                 .AsSelf()
                 .AsImplementedInterfaces();

@@ -10,7 +10,7 @@ namespace DataAccess.MarketData.Repository
 {
     public class MarketDataRepository<T> : IRepository<T> where T : class
     {
-        protected readonly MarketDataDbContext _context;
+        protected MarketDataDbContext _context;
 
         public MarketDataRepository(MarketDataDbContext context)
         {
@@ -33,7 +33,7 @@ namespace DataAccess.MarketData.Repository
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return _context.Set<T>().ToList(); 
         }
 
         public async Task<T> GetById(object id)
@@ -51,9 +51,9 @@ namespace DataAccess.MarketData.Repository
             _context.Set<T>().RemoveRange(entities);
         }
 
-        public async Task Save()
+        public async Task<int> Save()
         {
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public void Update(T entity)
