@@ -11,7 +11,6 @@ namespace Core.NFTs.YoHeroNFTs
         public HeroComposition() { }
         public HeroComposition(Race head, Race face, Race body, Race eyes, Race ears, Race legs)
         {
-            Id = Guid.NewGuid();
             Head = head;
             Face = face;
             Body = body;
@@ -19,8 +18,6 @@ namespace Core.NFTs.YoHeroNFTs
             Ears = ears;
             Legs = legs;
         }
-
-        public Guid Id { get; }
         public Race Head { get; }
         public Race Face { get; }
         public Race Body { get; }

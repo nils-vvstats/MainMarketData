@@ -34,53 +34,30 @@ namespace YoHeroMarketData.Requests.LiveAuctionsRequest
             //send request for data
 
             var liveAuctions = sendRequests();
-            //convert request data into usable data
 
 
-
-            //get list of auctions from repo
+            //Get all saved data in db
             var getLiveAuctionsQuery = new GetYoHeroLiveAuctionsQuery();
             var savedLiveAuctions = await _queryProcessor.Process(getLiveAuctionsQuery).ConfigureAwait(false);
-            var test = "testl";
-
-            var firstNotSecond = savedLiveAuctions.Except(liveAuctions).ToList();
-            var secondNotFirst = liveAuctions.Except(savedLiveAuctions).ToList();
 
 
-            var deleteLiveAuctionsCommand = new DeleteLiveAuctionCommand(firstNotSecond);
-            await _commandProcessor.Process(deleteLiveAuctionsCommand).ConfigureAwait(false);
+            //compare all auctions and see what has changed
+
+            //something like this but hero/auction? specific
+            //var oldAuctions = savedLiveAuctions.Except(liveAuctions).ToList();
+            //var newAuctions = liveAuctions.Except(savedLiveAuctions).ToList();
 
 
-            //compare two lists
+            //set all old auctions to disabled
+            //var expireLiveAuctionsCommand = new ExpireLiveAuctionsCommand(newAuctions);
+            //await _commandProcessor.Process(expireLiveAuctionsCommand).ConfigureAwait(false);
 
-            //delete everything that is not in the list from repo
-            //add everything that is in list
-
-
-
-
-
+            //insert any new auctions
+            //var saveLiveAuctionsCommand = new SaveLiveAuctionsCommand(newAuctions);
+            //await _commandProcessor.Process(saveLiveAuctionsCommand).ConfigureAwait(false);
 
 
-
-
-
-            var saveLiveAuctionsCommand = new SaveLiveAuctionsCommand(secondNotFirst);
-            await _commandProcessor.Process(saveLiveAuctionsCommand).ConfigureAwait(false);
-
-
-
-
-
-
-            //return null;
             return liveAuctions;
-            //create command to add new auctions
-            //execute command
-
-            //return
-
-          
         }
 
         private  List<YoHeroLiveAuction> sendRequests()

@@ -8,6 +8,6 @@ namespace Core.Auctions
 {
     public interface ILiveAuction
     {
-        public Guid Id { get; }
+        //public Guid Id { get; }
     }
 }

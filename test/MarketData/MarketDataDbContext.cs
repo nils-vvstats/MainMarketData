@@ -16,9 +16,9 @@ namespace DataAccess
 
         public virtual DbSet<YoHeroLiveAuction> YoHeroLiveAuctions { get; set; } 
         public virtual DbSet<Hero> Heroes { get; set; }
-        public virtual DbSet<HeroProperties> HeroProperties { get; set; }
-        public virtual DbSet<HeroAttributes> HeroAttributes { get; set; }
-        public virtual DbSet<HeroComposition> HeroCompositions { get; set; }
+        //public virtual DbSet<HeroProperties> HeroProperties { get; set; }
+        //public virtual DbSet<HeroAttributes> HeroAttributes { get; set; }
+        //public virtual DbSet<HeroComposition> HeroCompositions { get; set; }
 
         public MarketDataDbContext(DbContextOptions<MarketDataDbContext> options) :base(options)
         {
@@ -28,9 +28,9 @@ namespace DataAccess
         {
             modelBuilder.ApplyConfiguration(new YoHeroLiveAuctionConfiguration());
             modelBuilder.ApplyConfiguration(new HeroConfiguration());
-            modelBuilder.ApplyConfiguration(new HeroPropertiesConfiguration());
-            modelBuilder.ApplyConfiguration(new HeroAttributesConfiguration());
-            modelBuilder.ApplyConfiguration(new HeroCompositionConfiguration());
+            //modelBuilder.ApplyConfiguration(new HeroPropertiesConfiguration());
+            //modelBuilder.ApplyConfiguration(new HeroAttributesConfiguration());
+            //modelBuilder.ApplyConfiguration(new HeroCompositionConfiguration());
         }
     }
 }

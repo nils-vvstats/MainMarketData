@@ -10,15 +10,16 @@ namespace Core.Auctions.YoHeroLiveAuctions
     public class YoHeroLiveAuction : ILiveAuction
     {
         public YoHeroLiveAuction() { }
-        public YoHeroLiveAuction(Hero hero, double auctionPrice)
+        public YoHeroLiveAuction(Hero hero, double auctionPrice, bool enabled)
         {
-            Id = Guid.NewGuid();
+            YoHeroLiveAuctionId = Guid.NewGuid();
             Hero = hero;
             AuctionPrice = auctionPrice;
+            Enabled = enabled;
         }
-
-        public Guid Id { get; }
-        public Hero Hero { get; }
-        public double AuctionPrice { get; }
+        public Guid YoHeroLiveAuctionId { get; set; }
+        public virtual Hero Hero { get; set; }
+        public double AuctionPrice { get; set; }
+        public bool Enabled { get; set; }
     }
 }

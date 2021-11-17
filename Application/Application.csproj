@@ -12,4 +12,8 @@
     <Folder Include="Queries\LiveAuctions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+  </ItemGroup>
+
 </Project>

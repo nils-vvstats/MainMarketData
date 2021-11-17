@@ -32,7 +32,7 @@ namespace YoHeroMarketData.Translators
                 var hero = getHero(listOfLiveAuctions[i].ToObject<JObject>());
                 var price = listOfLiveAuctions[i].ToObject<JObject>()["price"].ToObject<double>();
                 var decimalPrice = price / Math.Pow(10, 18);
-                var liveAuction = new YoHeroLiveAuction(hero, decimalPrice);
+                var liveAuction = new YoHeroLiveAuction(hero, decimalPrice, true);
 
                 liveAuctions.Add(liveAuction);
             }

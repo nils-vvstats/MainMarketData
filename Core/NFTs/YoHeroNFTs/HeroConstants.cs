@@ -10,11 +10,11 @@ namespace Core.NFTs.YoHeroNFTs
     {
         Qi = 1,
         Shaman = 2,
-        Knight = 3,
+        Knight = 7,
         Warrior = 4,
         Priest = 5,
         Warlock = 6,
-        Mage = 7,
+        Mage = 3,
         Assassin = 8,
     }
 

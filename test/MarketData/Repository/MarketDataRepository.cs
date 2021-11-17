@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,12 +27,12 @@ namespace DataAccess.MarketData.Repository
             _context.Set<T>().AddRange(entities);
         }
 
-        public Task<IEnumerable<T>> Get(IFilter filter)
+        public Task<List<T>> Get(Expression<Func<T, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
             return _context.Set<T>().ToList(); 
         }

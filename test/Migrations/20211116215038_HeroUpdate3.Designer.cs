@@ -4,14 +4,16 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MarketDataDbContext))]
-    partial class MarketDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211116215038_HeroUpdate3")]
+    partial class HeroUpdate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,11 +30,11 @@ namespace DataAccess.Migrations
                     b.Property<double>("AuctionPrice")
                         .HasColumnType("float");
 
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
-
                     b.Property<Guid?>("HeroId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("enabled")
+                        .HasColumnType("bit");
 
                     b.HasKey("YoHeroLiveAuctionId");
 
