@@ -65,9 +65,15 @@ namespace DataAccess.MarketData.Repository
             throw new NotImplementedException();
         }
 
-        public void UpdateRange(IEnumerable<YoHeroLiveAuction> entities)
+        public void UpdateRange(List<YoHeroLiveAuction> entities)
         {
-            throw new NotImplementedException();
+            this._context.YoHeroLiveAuctions.AttachRange(entities);
+            foreach (var auction in entities)
+            {
+                _context.Entry(auction).State = EntityState.Modified;
+            }
+            
+
         }
     }
 }

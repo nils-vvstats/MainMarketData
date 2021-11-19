@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Commands.YoHero.DisableOldAuctions;
 using Application.Commands.YoHero.SaveAuctions;
 using Application.Queries;
 using Application.Queries.LiveAuctions;
@@ -31,33 +32,32 @@ namespace YoHeroMarketData.Requests.LiveAuctionsRequest
         }
         public async Task<List<YoHeroLiveAuction>> getLatestMarketData()
         {
-            //send request for data
-
+            //get live auctions from YoHero API
             var liveAuctions = sendRequests();
-
 
             //Get all saved data in db
             var getLiveAuctionsQuery = new GetYoHeroLiveAuctionsQuery();
+            getLiveAuctionsQuery.Enabled = true;
             var savedLiveAuctions = await _queryProcessor.Process(getLiveAuctionsQuery).ConfigureAwait(false);
 
+            //find any old auctions
+            var oldAuctions = savedLiveAuctions.Where(sa => !liveAuctions.Any(la => la.AuctionPrice == sa.AuctionPrice && la.Hero.HeroID == sa.Hero.HeroID)).OrderBy(x => x.Hero.HeroID).ToList();
 
-            //compare all auctions and see what has changed
+            //disable old auctions
+            var disableOldAuctions = new DisableOldAuctionsCommand(oldAuctions);
+            await _commandProcessor.Process(disableOldAuctions).ConfigureAwait(false);
 
-            //something like this but hero/auction? specific
-            //var oldAuctions = savedLiveAuctions.Except(liveAuctions).ToList();
-            //var newAuctions = liveAuctions.Except(savedLiveAuctions).ToList();
+            //get latest saved auctions without calling in
+            var updatedSavedLiveAuctions = savedLiveAuctions.Where(sa => !oldAuctions.Any(oa => oa.AuctionPrice == sa.AuctionPrice && oa.Hero.HeroID == sa.Hero.HeroID)).OrderBy(x => x.Hero.HeroID).ToList();
 
-
-            //set all old auctions to disabled
-            //var expireLiveAuctionsCommand = new ExpireLiveAuctionsCommand(newAuctions);
-            //await _commandProcessor.Process(expireLiveAuctionsCommand).ConfigureAwait(false);
+            //compare liveAuctions list with saved auctions to get any live auctions that haven't been saved
+            var newLiveAuctions = liveAuctions.Where(la => !updatedSavedLiveAuctions.Any(ua => ua.AuctionPrice == la.AuctionPrice && ua.Hero.HeroID == la.Hero.HeroID)).OrderBy(x => x.Hero.HeroID).ToList();
 
             //insert any new auctions
-            //var saveLiveAuctionsCommand = new SaveLiveAuctionsCommand(newAuctions);
-            //await _commandProcessor.Process(saveLiveAuctionsCommand).ConfigureAwait(false);
+            var saveLiveAuctionsCommand = new SaveLiveAuctionsCommand(newLiveAuctions);
+            await _commandProcessor.Process(saveLiveAuctionsCommand).ConfigureAwait(false);
 
-
-            return liveAuctions;
+            return newLiveAuctions; ;
         }
 
         private  List<YoHeroLiveAuction> sendRequests()

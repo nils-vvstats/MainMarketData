@@ -62,7 +62,7 @@ namespace DataAccess.MarketData.Repository
             _context.Set<T>().Update(entity);
         }
 
-        public void UpdateRange(IEnumerable<T> entities)
+        public void UpdateRange(List<T> entities)
         {
             _context.Set<T>().UpdateRange(entities);
         }
