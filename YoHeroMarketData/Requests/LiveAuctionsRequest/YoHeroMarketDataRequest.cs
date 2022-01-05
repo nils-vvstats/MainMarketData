@@ -1,9 +1,9 @@
-﻿using Application.Commands;
+﻿
+using Application.Commands;
 using Application.Commands.YoHero.DisableOldAuctions;
 using Application.Commands.YoHero.SaveAuctions;
 using Application.Queries;
 using Application.Queries.LiveAuctions;
-using Core.Auctions;
 using Core.Auctions.YoHeroLiveAuctions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,6 +33,7 @@ namespace YoHeroMarketData.Requests.LiveAuctionsRequest
         public async Task<List<YoHeroLiveAuction>> getLatestMarketData()
         {
             //get live auctions from YoHero API
+            
             var liveAuctions = sendRequests();
 
             //Get all saved data in db
@@ -107,7 +108,7 @@ namespace YoHeroMarketData.Requests.LiveAuctionsRequest
         private async Task<JObject> sendMarketDataRequest(int page)
         {
             var marketDataMessage = new MarketDataMessage(page);
-           var marketDataBodyRequest = new MarketDataBodyRequest(marketDataMessage);
+            var marketDataBodyRequest = new MarketDataBodyRequest(marketDataMessage);
 
             var uri = "https://www.yohero.fi/api";
             var jsonBody = JsonConvert.SerializeObject(marketDataBodyRequest);

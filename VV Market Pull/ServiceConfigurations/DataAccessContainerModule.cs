@@ -2,6 +2,7 @@
 using Autofac;
 using DataAccess;
 using DataAccess.MarketData.Repository;
+using DataAccess.MarketData.VulcanMarketData.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,28 @@ namespace VV_Market_Pull.ServiceConfigurations
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var dataAccessAssembly = typeof(MarketDataDbContext).Assembly;
+            //ar dataAccessAssembly = typeof(MarketDataDbContext).Assembly;
+            var vulcanDataAccessAssembly = typeof(VulcanMarketDataDbContext).Assembly;
 
-            builder.RegisterAssemblyTypes(dataAccessAssembly)
+            builder.RegisterAssemblyTypes(vulcanDataAccessAssembly)
                 .AsClosedTypesOf(typeof(IReadOnlyRepository<>));
 
-            builder.RegisterAssemblyTypes(dataAccessAssembly)
+            builder.RegisterAssemblyTypes(vulcanDataAccessAssembly)
                 .AsClosedTypesOf(typeof(IRepository<>));
 
-            builder.RegisterGeneric(typeof(MarketDataRepository<>))
+            builder.RegisterGeneric(typeof(VulcanMarketDataRepository<>))
                 .AsSelf()
                 .AsImplementedInterfaces();
+
+            //builder.RegisterAssemblyTypes(vulcanDataAccessAssembly)
+            //    .AsClosedTypesOf(typeof(IReadOnlyRepository<>));
+
+            //builder.RegisterAssemblyTypes(vulcanDataAccessAssembly)
+            //    .AsClosedTypesOf(typeof(IRepository<>));
+
+            //builder.RegisterGeneric(typeof(VulcanMarketDataRepository<>))
+            //    .AsSelf()
+            //    .AsImplementedInterfaces();
         }
     }
 }

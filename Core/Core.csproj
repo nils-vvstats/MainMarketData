@@ -5,10 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Alerts\" />
-    <Folder Include="NFTs\VFNFTs\" />
     <Folder Include="WalletTransactions\" />
-    <Folder Include="Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

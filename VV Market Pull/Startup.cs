@@ -28,7 +28,8 @@ namespace VV_Market_Pull
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MarketDataDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("marketDataDb")), ServiceLifetime.Transient);
+            //services.AddDbContext<MarketDataDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("marketDataDb")), ServiceLifetime.Transient);
+            services.AddDbContext<VulcanMarketDataDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("marketDataDb")), ServiceLifetime.Transient);
 
             services.AddControllers();
         }
@@ -39,7 +40,7 @@ namespace VV_Market_Pull
             builder.RegisterModule(new MarketDataContainerModule());
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MarketDataDbContext dataContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, VulcanMarketDataDbContext vulcanDataContext)
         {
             if (env.IsDevelopment())
             {
@@ -54,9 +55,14 @@ namespace VV_Market_Pull
 
             app.UseAuthorization();
 
-            if (dataContext.Database.GetPendingMigrations().Any())
+            //if (dataContext.Database.GetPendingMigrations().Any())
+            //{
+            //    dataContext.Database.Migrate();
+            //}
+
+            if (vulcanDataContext.Database.GetPendingMigrations().Any())
             {
-                dataContext.Database.Migrate();
+                vulcanDataContext.Database.Migrate();
             }
 
             app.UseEndpoints(endpoints =>

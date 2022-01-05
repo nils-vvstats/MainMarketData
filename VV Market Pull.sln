@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{C23A1D5D-9242-439F-9452-B080F11B9F18}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketData", "MarketData\MarketData.csproj", "{9488F4A6-566C-443E-8E39-F7FD1DDA2F4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YoHeroMarketData", "YoHeroMarketData\YoHeroMarketData.csproj", "{058F45F8-6B3E-49B0-8D2E-BA88124470FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{DBC63B01-9484-47B2-B31A-E93AECD0343B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{335E833A-8D1A-4EB7-9E76-FC26BBB0FD1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVMarketData", "VVMarketData\VVMarketData.csproj", "{9C7DCBF5-E8B9-47E5-8A5C-96932F777D42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VulcanMarketDataPull", "VulcanMarketDataPull\VulcanMarketDataPull.csproj", "{62874174-CB42-4E67-B36A-0382422E2192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoHeroMarketData", "YoHeroMarketData\YoHeroMarketData.csproj", "{058F45F8-6B3E-49B0-8D2E-BA88124470FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestrator", "Orchestrator\Orchestrator.csproj", "{E5418B48-1797-40DF-BA31-48B1FBB85C4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,22 +41,22 @@ Global
 		{C23A1D5D-9242-439F-9452-B080F11B9F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C23A1D5D-9242-439F-9452-B080F11B9F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C23A1D5D-9242-439F-9452-B080F11B9F18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9488F4A6-566C-443E-8E39-F7FD1DDA2F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9488F4A6-566C-443E-8E39-F7FD1DDA2F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9488F4A6-566C-443E-8E39-F7FD1DDA2F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9488F4A6-566C-443E-8E39-F7FD1DDA2F4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBC63B01-9484-47B2-B31A-E93AECD0343B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBC63B01-9484-47B2-B31A-E93AECD0343B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBC63B01-9484-47B2-B31A-E93AECD0343B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBC63B01-9484-47B2-B31A-E93AECD0343B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C7DCBF5-E8B9-47E5-8A5C-96932F777D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C7DCBF5-E8B9-47E5-8A5C-96932F777D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C7DCBF5-E8B9-47E5-8A5C-96932F777D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C7DCBF5-E8B9-47E5-8A5C-96932F777D42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{058F45F8-6B3E-49B0-8D2E-BA88124470FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{058F45F8-6B3E-49B0-8D2E-BA88124470FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{058F45F8-6B3E-49B0-8D2E-BA88124470FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{058F45F8-6B3E-49B0-8D2E-BA88124470FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335E833A-8D1A-4EB7-9E76-FC26BBB0FD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335E833A-8D1A-4EB7-9E76-FC26BBB0FD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335E833A-8D1A-4EB7-9E76-FC26BBB0FD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335E833A-8D1A-4EB7-9E76-FC26BBB0FD1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62874174-CB42-4E67-B36A-0382422E2192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62874174-CB42-4E67-B36A-0382422E2192}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62874174-CB42-4E67-B36A-0382422E2192}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62874174-CB42-4E67-B36A-0382422E2192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5418B48-1797-40DF-BA31-48B1FBB85C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5418B48-1797-40DF-BA31-48B1FBB85C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5418B48-1797-40DF-BA31-48B1FBB85C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5418B48-1797-40DF-BA31-48B1FBB85C4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
