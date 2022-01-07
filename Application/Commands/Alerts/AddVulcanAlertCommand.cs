@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Alerts;
+using Core.Alerts.VulcanAlerts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,26 +9,26 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Alerts
 {
-    public class AddAlertCommand : ICommand
+    public class AddVulcanAlertCommand : ICommand
     {
-        public Alert Alert { get; set; }
+        public VulcanAlert Alert { get; }
 
-        public AddAlertCommand(Alert alert)
+        public AddVulcanAlertCommand(VulcanAlert alert)
         {
             Alert = alert;
         }
     }
 
-    public class AddAlertCommandHandler : ICommandHandler<AddAlertCommand>
+    public class AddVulcanAlertCommandHandler : ICommandHandler<AddVulcanAlertCommand>
     {
         private readonly IRepository<Alert> _repository;
 
-        public AddAlertCommandHandler(IRepository<Alert> repository)
+        public AddVulcanAlertCommandHandler(IRepository<Alert> repository)
         {
             _repository = repository;
         }
 
-        public async Task Handle(AddAlertCommand command)
+        public async Task Handle(AddVulcanAlertCommand command)
         {
             try
             {

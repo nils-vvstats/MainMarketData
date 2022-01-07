@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Core.Alerts;
 using Core.Auctions.VulcanAuctions;
 using System;
 using System.Collections.Generic;
@@ -24,15 +25,30 @@ namespace Application.Queries.Alerts.VulcanAlerts
             {
                 throw new ArgumentException(nameof(query), "Query must be provided to handle GetLiveAuctionsQuery");
             }
+
             var filter = new VulcanAuctionFilter
             {
-                AlertExpression = query.Expression
+                SendAlert = query.SendAlert
             };
 
-            var liveAuctions = await _repository.Get(filter.AlertExpression).ConfigureAwait(false);
+            var translatedFilter = FilterTranslation(filter);
+            var activeAuctions = await _repository.Get(translatedFilter).ConfigureAwait(false);
 
+            return activeAuctions.ToList();
+        }
 
-            return liveAuctions.ToList();
+        public static Expression<Func<VulcanAuction, bool>> FilterTranslation(VulcanAuctionFilter filter)
+        {
+            Expression<Func<VulcanAuction, bool>> translatedFilter = ag => true;
+
+            if (filter == null)
+            {
+                return null;
+            }
+
+            translatedFilter = translatedFilter.And(va => va.SendAlert == filter.SendAlert);
+
+            return translatedFilter;
         }
 
     }

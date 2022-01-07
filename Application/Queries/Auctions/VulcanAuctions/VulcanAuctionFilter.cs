@@ -11,6 +11,6 @@ namespace Application.Queries.Alerts
 {
     public class VulcanAuctionFilter : IFilter
     {
-        public Expression<Func<VulcanAuction, bool>> AlertExpression { get; protected internal set; }
+        public bool SendAlert { get; protected internal set; }
     }
 }

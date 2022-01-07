@@ -1,4 +1,6 @@
 ﻿using Application.Commands;
+using Core.Alerts;
+using Core.Alerts.VulcanAlerts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,11 @@ namespace TelegramBot
         public void SendMessage(long chatId, string message)
         {
             Bot.SendTextMessageAsync(chatId, message);
+        }
+
+        public void SendAlert(Alert alert, string message)
+        {
+            SendMessage(alert.ChatId, message);
         }
 
     }

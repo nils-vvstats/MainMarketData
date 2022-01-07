@@ -22,19 +22,20 @@ namespace Core.Alerts.VulcanAlerts
             StringExpression = stringExpression;
         }
 
-        private Expression<Func<VulcanAuction, bool>> getListOfCriteria(string newCriterias)
+        public Expression<Func<VulcanAuction, bool>> getExpression()
         {
             Expression<Func<VulcanAuction, bool>> translatedFilter = a => true;
 
-            if (newCriterias == null || newCriterias.Length == 0)
+            if (StringExpression == null || StringExpression.Length == 0)
             {
                 return null;
             }
 
-            var criterias = newCriterias.Split(",");
+            var criterias = StringExpression.Split(",");
 
             foreach (var criteria in criterias)
             {
+                
                 if (criteria.Contains("<"))
                 {
                     var parts = criteria.Split("<");
@@ -45,7 +46,7 @@ namespace Core.Alerts.VulcanAlerts
 
                         if (int.TryParse(parts[1], out value))
                         {
-                            translatedFilter = translatedFilter.And(Va => JObject.Parse(Va.AuctionDetails)[parts[0]].ToObject<Int32>() < value);
+                            translatedFilter = translatedFilter.And(Va => JObject.Parse(Va.AuctionDetails)[parts[0]].ToObject<decimal>() < value);
                         }
 
                     }
@@ -60,7 +61,7 @@ namespace Core.Alerts.VulcanAlerts
 
                         if (int.TryParse(parts[1], out value))
                         {
-                            translatedFilter = translatedFilter.And(Va => JObject.Parse(Va.AuctionDetails)[parts[0]].ToObject<Int32>() > value);
+                            translatedFilter = translatedFilter.And(Va => JValue.Parse(Va.AuctionDetails)[parts[0]].ToObject<decimal>() > value);
                         }
 
                     }
@@ -71,12 +72,83 @@ namespace Core.Alerts.VulcanAlerts
 
                     if (parts.Length == 2)
                     {
-                        translatedFilter = translatedFilter.And(Va => JObject.Parse(Va.AuctionDetails)[parts[0]] == (JObject)parts[1]);
+                        translatedFilter = translatedFilter.And(Va => 
+
+                             JObject.Parse(Va.AuctionDetails)[parts[0]].Value<string>().Equals(parts[1])
+
+
+                            );
                     }
                 }
             }
 
             return translatedFilter;
+        }
+
+        public List<VulcanAuction> GetMatchedAuctions(List<VulcanAuction> auctions, Alert alert)
+        {
+            var criterias = alert.StringExpression.Split(",");
+
+            List<VulcanAuction> matchedAuctions = auctions;
+
+            foreach (var criteria in criterias)
+            {
+
+                if (criteria.Contains("<"))
+                {
+                    var parts = criteria.Split("<");
+
+                    if (parts.Length == 2)
+                    {
+                        decimal value;
+
+                        if (decimal.TryParse(parts[1], out value))
+                        {
+                            matchedAuctions = matchedAuctions.Where(Va => JObject.Parse(Va.AuctionDetails)[parts[0]].ToObject<decimal>() < value).ToList();
+                        }
+
+                    }
+                }
+                else if (criteria.Contains(">"))
+                {
+                    var parts = criteria.Split(">");
+
+                    if (parts.Length == 2)
+                    {
+                        decimal value;
+
+                        if (decimal.TryParse(parts[1], out value))
+                        {
+                            matchedAuctions = matchedAuctions.Where(Va => JObject.Parse(Va.AuctionDetails)[parts[0]].ToObject<decimal>() > value).ToList();
+                        }
+
+                    }
+                }
+                else if (criteria.Contains("="))
+                {
+                    var parts = criteria.Split("=");
+
+                    if (parts.Length == 2)
+                    {
+                        matchedAuctions = matchedAuctions.Where(Va => JObject.Parse(Va.AuctionDetails)[parts[0]].ToObject<string>().Equals(parts[1])).ToList();
+                    }
+                }
+            }
+
+            return matchedAuctions;
+        }
+    
+    
+        public override string GetMessage()
+        {
+            var message = "An alert with the following Criteria has been added: \n\n";
+
+            foreach (var criteria in StringExpression.Split(","))
+            {
+                message += criteria + "\n";
+            }
+
+            return message;
         }
     }
 }

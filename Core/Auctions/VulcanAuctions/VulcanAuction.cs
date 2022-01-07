@@ -16,8 +16,13 @@ namespace Core.Auctions.VulcanAuctions
             AuctionDetails = AuctionDetails;
             LastUpdated = DateTime.UtcNow;
             Enabled = true;
+            SendAlert = true;
         }
 
+        public override string GetMessage()
+        {
+            return "" + AuctionId;
+        }
         //public VulcanAuction(int vulcanAuctionId, int ownerId, string ownerUsername, List<VulcanNFT> vulcanNFTs,
         //                     double buyNowPrice, double maxBidPrice, double minimumBidRaise, DateTime createdDate, DateTime closedDate, double purchasedPrice, int purchasedBy)
         //{

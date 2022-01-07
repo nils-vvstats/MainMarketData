@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.Alerts.VulcanAlerts
 {
-    public class GetActiveVulcanAlertsQuery : IQuery<List<Alert>>
+    public class GetActiveVulcanAlertsQuery : IQuery<List<VulcanAlert>>
     {
         public GetActiveVulcanAlertsQuery() { }
         public GetActiveVulcanAlertsQuery(bool enabled)

@@ -1,4 +1,5 @@
-﻿using Core.Alerts.VulcanAlerts;
+﻿using Core.Alerts;
+using Core.Alerts.VulcanAlerts;
 using Core.Auctions.VulcanAuctions;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.Alerts.VulcanAlerts
 {
-    public class GetVulcanAuctionsQuery : IQuery<VulcanAlert>
+    public class GetVulcanAuctionsQuery : IQuery<List<VulcanAuction>>
     {
-        public GetVulcanAuctionsQuery(Expression<Func<VulcanAuction, bool>> expression)
+        public GetVulcanAuctionsQuery() { }
+        public GetVulcanAuctionsQuery(bool sendAlert)
         {
-            Expression = expression;
+            SendAlert = sendAlert;
         }
 
-        public Expression<Func<VulcanAuction, bool>> Expression { get; }
+        public bool SendAlert { get; protected internal set; }
     }
 }

@@ -15,5 +15,6 @@ namespace Core.Alerts
         public long ChatId { get; protected internal set; }
         public bool Enabled { get; protected internal set; }
         public string StringExpression { get; protected internal set; }
+        public abstract string GetMessage();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Alerts;
+using Core.Alerts.VulcanAlerts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.Alerts.VulcanAlerts
 {
-    public class GetActiveVulcanAlertsQueryHandler : IQueryHandler<GetActiveVulcanAlertsQuery, List<Alert>>
+    public class GetActiveVulcanAlertsQueryHandler : IQueryHandler<GetActiveVulcanAlertsQuery, List<VulcanAlert>>
     {
-        private readonly IRepository<Alert> _repository;
+        private readonly IReadOnlyRepository<VulcanAlert> _repository;
 
-        public GetActiveVulcanAlertsQueryHandler(IRepository<Alert> repository)
+        public GetActiveVulcanAlertsQueryHandler(IReadOnlyRepository<VulcanAlert> repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository), "Repository must be provided to execute GetLiveAuctionsQuery");
         }
 
-        public async Task<List<Alert>> Handle(GetActiveVulcanAlertsQuery query)
+        public async Task<List<VulcanAlert>> Handle(GetActiveVulcanAlertsQuery query)
         {
             if (query == null)
             {
@@ -34,9 +35,9 @@ namespace Application.Queries.Alerts.VulcanAlerts
 
             return activeAlerts.ToList();
         }
-        public static Expression<Func<Alert, bool>> FilterTranslation(VulcanAlertFilter filter)
+        public static Expression<Func<VulcanAlert, bool>> FilterTranslation(VulcanAlertFilter filter)
         {
-            Expression<Func<Alert, bool>> translatedFilter = ag => true;
+            Expression<Func<VulcanAlert, bool>> translatedFilter = ag => true;
 
             if (filter == null)
             {
